@@ -22,7 +22,7 @@ class ProxyConnection;
 class Proxy
 {
 public:
-  Proxy(int port, const std::string &password, const std::string &hostName, int httpPort, const std::string &baseUrl);
+  Proxy(int port, const std::string &password, const std::string &hostName, int httpPort, const std::string &baseUrl, const std::string &fakeHost);
   ~Proxy();
   void start();
   void stop();

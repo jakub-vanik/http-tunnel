@@ -1,7 +1,7 @@
 #include "proxy.h"
 
-Proxy::Proxy(int port, const std::string &password, const std::string &hostName, int httpPort, const std::string &baseUrl) :
-    logger(Poco::Logger::get("proxy")), threadPool(64, 64), socket(port), server(new ProxyConnectionFactory(*this), threadPool, socket), runnable(*this, &Proxy::loop), link(password, hostName, httpPort, baseUrl)
+Proxy::Proxy(int port, const std::string &password, const std::string &hostName, int httpPort, const std::string &baseUrl, const std::string &fakeHost) :
+    logger(Poco::Logger::get("proxy")), threadPool(64, 64), socket(port), server(new ProxyConnectionFactory(*this), threadPool, socket), runnable(*this, &Proxy::loop), link(password, hostName, httpPort, baseUrl, fakeHost)
 {
   nextId = 0;
 }

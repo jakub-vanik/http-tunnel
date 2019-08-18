@@ -2,10 +2,11 @@
 
 namespace Link {
 
-ClientLink::ClientLink(const std::string &password, const std::string &hostName, int httpPort, const std::string &baseUrl) :
+ClientLink::ClientLink(const std::string &password, const std::string &hostName, int httpPort, const std::string &baseUrl, const std::string &fakeHost) :
     Link(10, 200, password), session(hostName, httpPort), runnable(*this, &ClientLink::loop)
 {
   this->baseUrl = baseUrl;
+  this->fakeHost = fakeHost;
   idle = true;
   session.setTimeout(Poco::Timespan(5, 0));
   session.setKeepAlive(true);
@@ -79,6 +80,10 @@ std::string ClientLink::get(const std::string &text)
       path.append(baseUrl);
       path.append(text);
       Poco::Net::HTTPRequest request(Poco::Net::HTTPRequest::HTTP_GET, path, Poco::Net::HTTPMessage::HTTP_1_1);
+      if (!fakeHost.empty())
+      {
+        request.setHost(fakeHost);
+      }
       session.sendRequest(request);
       Poco::Net::HTTPResponse response;
       std::stringstream stream;

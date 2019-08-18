@@ -15,13 +15,14 @@ namespace Link {
 class ClientLink : public Link
 {
 public:
-  ClientLink(const std::string &password, const std::string &hostName, int httpPort, const std::string &baseUrl);
+  ClientLink(const std::string &password, const std::string &hostName, int httpPort, const std::string &baseUrl, const std::string &fakeHost);
   ~ClientLink();
   void start();
   void stop();
   void setIdle(bool idle);
 private:
   std::string baseUrl;
+  std::string fakeHost;
   volatile bool idle;
   Poco::Net::HTTPClientSession session;
   Poco::RunnableAdapter<ClientLink> runnable;

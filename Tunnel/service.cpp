@@ -11,6 +11,7 @@ Service::Service()
   hostName = "127.0.0.1";
   httpPort = 8080;
   baseUrl = "/";
+  fakeHost = "";
   verbosity = 0;
 }
 
@@ -43,6 +44,7 @@ void Service::defineOptions(Poco::Util::OptionSet &options)
   options.addOption(Poco::Util::Option("host", "h", "host name", false).argument("value"));
   options.addOption(Poco::Util::Option("port", "p", "http port", false).argument("value"));
   options.addOption(Poco::Util::Option("base", "b", "base URL", false).argument("value"));
+  options.addOption(Poco::Util::Option("fake", "f", "fake host name", false).argument("value"));
   options.addOption(Poco::Util::Option("verbosity", "v", "verbosity", false).argument("value"));
 }
 
@@ -78,6 +80,10 @@ void Service::handleOption(const std::string &name, const std::string &value)
   {
     baseUrl = value;
   }
+  if (name == "fake")
+  {
+    fakeHost = value;
+  }
   if (name == "verbosity")
   {
     verbosity = std::stoi(value);
@@ -97,7 +103,7 @@ void Service::setupLogger()
 
 void Service::runProxy()
 {
-  Proxy *proxy = new Proxy(proxyPort, password, hostName, httpPort, baseUrl);
+  Proxy *proxy = new Proxy(proxyPort, password, hostName, httpPort, baseUrl, fakeHost);
   proxy->start();
   waitForTerminationRequest();
   proxy->stop();

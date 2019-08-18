@@ -31,6 +31,7 @@ private:
   std::string hostName;
   int httpPort;
   std::string baseUrl;
+  std::string fakeHost;
   int verbosity;
   int main(const std::vector<std::string> &args);
   void defineOptions(Poco::Util::OptionSet &options);
