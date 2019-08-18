@@ -24,6 +24,7 @@ Both client and server can be run using same executable by supplying appropriate
 - **-h**, **--host=HOSTNAME** sets hostname of the relay server in client mode, is not used in server mode
 - **-p**, **--port=PORT** sets HTTP server port in both modes, default is 80
 - **-b**, **--base=ADDRESS** sets base URL at which tunnel is mapped in both modes, defaults to /
+- **-f**, **--fake=HOSTNAME** sets hostname to use in host field of HTTP request, defaults to real hostname
 - **-v**, **--verbosity=LEVEL** sets logger verbosity, 0 disables logging, 8 is the most verbose, default is 0
 
 ## Docker
